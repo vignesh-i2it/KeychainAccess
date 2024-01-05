@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FB625AE2B47CC9E000A52D3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB625AD2B47CC9E000A52D3 /* User.swift */; };
+		2FB625B02B47CD06000A52D3 /* KeychainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB625AF2B47CD06000A52D3 /* KeychainAccess.swift */; };
 		2FDE4A882B46976E00A1275D /* KeyChain_ManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE4A872B46976E00A1275D /* KeyChain_ManagerApp.swift */; };
 		2FDE4A8A2B46976E00A1275D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE4A892B46976E00A1275D /* ContentView.swift */; };
 		2FDE4A8C2B46977000A1275D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FDE4A8B2B46977000A1275D /* Assets.xcassets */; };
@@ -16,10 +18,11 @@
 		2FDE4A9B2B46EDAD00A1275D /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 2FDE4A9A2B46EDAD00A1275D /* KeychainAccess */; };
 		2FDE4AA02B46EE1600A1275D /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE4A9F2B46EE1600A1275D /* SecureStorage.swift */; };
 		2FFC74962B47C8FB004DA031 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC74952B47C8FB004DA031 /* KeychainService.swift */; };
-		2FFC74982B47C916004DA031 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC74972B47C916004DA031 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2FB625AD2B47CC9E000A52D3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2FB625AF2B47CD06000A52D3 /* KeychainAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
 		2FDE4A842B46976E00A1275D /* KeyChain Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KeyChain Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FDE4A872B46976E00A1275D /* KeyChain_ManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain_ManagerApp.swift; sourceTree = "<group>"; };
 		2FDE4A892B46976E00A1275D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,7 +32,6 @@
 		2FDE4A972B46B94000A1275D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		2FDE4A9F2B46EE1600A1275D /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		2FFC74952B47C8FB004DA031 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
-		2FFC74972B47C916004DA031 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +68,10 @@
 				2FDE4A9E2B46EDFE00A1275D /* Utils */,
 				2FDE4A872B46976E00A1275D /* KeyChain_ManagerApp.swift */,
 				2FDE4A892B46976E00A1275D /* ContentView.swift */,
-				2FFC74972B47C916004DA031 /* User.swift */,
 				2FFC74952B47C8FB004DA031 /* KeychainService.swift */,
+				2FB625AF2B47CD06000A52D3 /* KeychainAccess.swift */,
 				2FDE4A952B46B93300A1275D /* SignInView.swift */,
+				2FB625AD2B47CC9E000A52D3 /* User.swift */,
 				2FDE4A972B46B94000A1275D /* SignUpView.swift */,
 				2FDE4A8B2B46977000A1275D /* Assets.xcassets */,
 				2FDE4A8D2B46977000A1275D /* Preview Content */,
@@ -169,12 +172,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FDE4A982B46B94000A1275D /* SignUpView.swift in Sources */,
+				2FB625AE2B47CC9E000A52D3 /* User.swift in Sources */,
 				2FDE4A962B46B93300A1275D /* SignInView.swift in Sources */,
 				2FDE4A8A2B46976E00A1275D /* ContentView.swift in Sources */,
 				2FDE4AA02B46EE1600A1275D /* SecureStorage.swift in Sources */,
+				2FB625B02B47CD06000A52D3 /* KeychainAccess.swift in Sources */,
 				2FDE4A882B46976E00A1275D /* KeyChain_ManagerApp.swift in Sources */,
 				2FFC74962B47C8FB004DA031 /* KeychainService.swift in Sources */,
-				2FFC74982B47C916004DA031 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

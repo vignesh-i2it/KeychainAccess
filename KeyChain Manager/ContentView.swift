@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+//struct User: Codable {
+//    let id: UUID
+//    let name: String
+//    let username: String
+//    let password: String
+//}
+
 struct ContentView: View {
     var body: some View {
         
