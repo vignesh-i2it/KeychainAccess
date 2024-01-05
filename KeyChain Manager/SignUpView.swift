@@ -56,7 +56,7 @@ struct SignUpView: View {
             
                                            
             Button("Register") {
-                let newUser = User(name: name, username: username, password: password)
+                let newUser = User(name: name, username: username, password: password, accessGranted: true)
                                 KeychainService.saveUser(newUser)
             }.font(.title3)
                 .foregroundColor(.white)

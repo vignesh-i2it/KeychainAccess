@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2FB625AE2B47CC9E000A52D3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB625AD2B47CC9E000A52D3 /* User.swift */; };
 		2FB625B02B47CD06000A52D3 /* KeychainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB625AF2B47CD06000A52D3 /* KeychainAccess.swift */; };
+		2FB625B42B47DB27000A52D3 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB625B32B47DB27000A52D3 /* Dashboard.swift */; };
 		2FDE4A882B46976E00A1275D /* KeyChain_ManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE4A872B46976E00A1275D /* KeyChain_ManagerApp.swift */; };
 		2FDE4A8A2B46976E00A1275D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE4A892B46976E00A1275D /* ContentView.swift */; };
 		2FDE4A8C2B46977000A1275D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FDE4A8B2B46977000A1275D /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		2FB625AD2B47CC9E000A52D3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2FB625AF2B47CD06000A52D3 /* KeychainAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
+		2FB625B32B47DB27000A52D3 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		2FDE4A842B46976E00A1275D /* KeyChain Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KeyChain Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FDE4A872B46976E00A1275D /* KeyChain_ManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain_ManagerApp.swift; sourceTree = "<group>"; };
 		2FDE4A892B46976E00A1275D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				2FFC74952B47C8FB004DA031 /* KeychainService.swift */,
 				2FB625AF2B47CD06000A52D3 /* KeychainAccess.swift */,
 				2FDE4A952B46B93300A1275D /* SignInView.swift */,
+				2FB625B32B47DB27000A52D3 /* Dashboard.swift */,
 				2FB625AD2B47CC9E000A52D3 /* User.swift */,
 				2FDE4A972B46B94000A1275D /* SignUpView.swift */,
 				2FDE4A8B2B46977000A1275D /* Assets.xcassets */,
@@ -175,6 +178,7 @@
 				2FB625AE2B47CC9E000A52D3 /* User.swift in Sources */,
 				2FDE4A962B46B93300A1275D /* SignInView.swift in Sources */,
 				2FDE4A8A2B46976E00A1275D /* ContentView.swift in Sources */,
+				2FB625B42B47DB27000A52D3 /* Dashboard.swift in Sources */,
 				2FDE4AA02B46EE1600A1275D /* SecureStorage.swift in Sources */,
 				2FB625B02B47CD06000A52D3 /* KeychainAccess.swift in Sources */,
 				2FDE4A882B46976E00A1275D /* KeyChain_ManagerApp.swift in Sources */,

@@ -5,29 +5,47 @@
 //  Created by Vignesh on 05/01/24.
 //
 
-//import Foundation
-//import KeychainAccess
-//
-//struct KeychainService {
-//    static let keychain = Keychain(service: "YourAppService")
-//
-//    static func saveUser(_ user: User) {
-//        do {
-//            try keychain.set(try PropertyListEncoder().encode(user), key: user.username)
-//        } catch {
-//            print("Error saving user data to Keychain: \(error.localizedDescription)")
-//        }
-//    }
-//
-//    static func getUser(username: String) -> User? {
-//        do {
-//            if let userData = try keychain.getData(username),
-//               let user = try PropertyListDecoder().decode(User.self, from: userData) {
-//                return user
-//            }
-//        } catch {
-//            print("Error retrieving user data from Keychain: \(error.localizedDescription)")
-//        }
-//        return nil
-//    }
-//}
+import Foundation
+import Security
+
+struct KeychainService {
+    
+    private static let service = "YourAppService"
+
+    static func saveUser(_ user: User) {
+        
+        let userData = try! JSONEncoder().encode(user)
+        
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: user.username,
+            kSecValueData as String: userData
+        ]
+        
+        SecItemDelete(query as CFDictionary)
+        SecItemAdd(query as CFDictionary, nil)
+    }
+    
+    static func getUser(username: String) -> User? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: username,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnData as String: true
+        ]
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+
+        guard status == errSecSuccess,
+              let existingItem = item as? Data,
+              let user = try? JSONDecoder().decode(User.self, from: existingItem)
+        else { return nil }
+
+        return user
+    }
+    
+    
+}

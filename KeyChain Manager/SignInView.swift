@@ -11,7 +11,7 @@ struct SignInView: View {
     
     @State var username: String = ""
     @State var password: String = ""
-    @State private var loggedIn = false
+    @State private var isAuthenticated = false
 
     
     var body: some View {
@@ -43,14 +43,23 @@ struct SignInView: View {
                 )
                 .autocapitalization(.none)
             
-                                           
+            NavigationLink(destination: Dashboard(username: $username), isActive: $isAuthenticated) {
+                                EmptyView()
+                            }
+                            .hidden()
+        
             Button("Login") {
                 if let user = KeychainService.getUser(username: username),
-                                   user.password == password {
-                                    loggedIn = true
-                              
-                    print("logged in")
-                                }
+                   user.password == password {
+                    if user.accessGranted {
+                        isAuthenticated = true
+                        print("accessGranted")
+                    } else {
+                        print("No access")
+                    }
+                } else {
+                    print("wrong creds")
+                }
             }.font(.title3)
                 .foregroundColor(.white)
                 .frame(width: 200, height: 50)
