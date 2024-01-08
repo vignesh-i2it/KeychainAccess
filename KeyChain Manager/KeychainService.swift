@@ -12,40 +12,119 @@ struct KeychainService {
     
     private static let service = "YourAppService"
 
-    static func saveUser(_ user: User) {
-        
-        let userData = try! JSONEncoder().encode(user)
-        
+    static func savePassword(account: String, password: String) {
+        let passwordData = Data(password.utf8)
+
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: user.username,
-            kSecValueData as String: userData
+            kSecAttrAccount as String: account,
+            kSecValueData as String: passwordData,
+            kSecAttrIsInvisible as String: false
         ]
-        
-        SecItemDelete(query as CFDictionary)
-        SecItemAdd(query as CFDictionary, nil)
+
+        let status = SecItemAdd(query as CFDictionary, nil)
+
+        if status == errSecDuplicateItem {
+            print("Username already exists")
+        } else {
+            print("Password saved successfully.")
+        }
     }
-    
-    static func getUser(username: String) -> User? {
+
+    static func getPassword(forAccount account: String) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: username,
+            kSecAttrAccount as String: account,
+            kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne,
-            kSecReturnData as String: true
+            kSecAttrIsInvisible as String: false
         ]
 
         var item: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
 
-        guard status == errSecSuccess,
-              let existingItem = item as? Data,
-              let user = try? JSONDecoder().decode(User.self, from: existingItem)
-        else { return nil }
+        if SecItemCopyMatching(query as CFDictionary, &item) == errSecSuccess {
+            if let passwordData = item as? Data,
+               let password = String(data: passwordData, encoding: .utf8) {
+                return password
+            }
+        }
+        return nil
+    }
 
-        return user
+    static func getActiveUsernames() -> [String] {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecMatchLimit as String: kSecMatchLimitAll,
+            kSecReturnAttributes as String: true,
+            kSecAttrIsInvisible as String: false
+        ]
+
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+
+        guard status == errSecSuccess, let items = result as? [[String: Any]] else {
+            return []
+        }
+
+        let usernames = items.compactMap { $0[kSecAttrAccount as String] as? String }
+        return usernames
     }
     
+    static func getSoftDeletedUsernames() -> [String] {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecReturnAttributes as String: true,
+            kSecMatchLimit as String: kSecMatchLimitAll,
+            kSecAttrIsInvisible as String: true
+        ]
+
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+
+        guard status == errSecSuccess, let items = result as? [[String: Any]] else {
+            return []
+        }
+
+        let softDeletedUsernames = items.compactMap { $0[kSecAttrAccount as String] as? String }
+
+        return softDeletedUsernames
+    }
+
+    static func activateUsername(account: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: account
+        ]
+
+        let attributes: [String: Any] = [
+            kSecAttrIsInvisible as String: false
+        ]
+
+        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
+
+        if status == errSecSuccess {
+            print("set as visible")
+        } else {
+            print("Failed to set item to visible with status: \(status)")
+        }
+    }
     
+    static func softDeleteUsername(account: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: account
+        ]
+
+        let attributes: [String: Any] = [
+            kSecAttrIsInvisible as String: true
+        ]
+
+        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
+
+        if status == errSecSuccess {
+            print("set as invisible")
+        } else {
+            print("Failed to set item to invisible with status: \(status)")
+        }
+    }    
 }

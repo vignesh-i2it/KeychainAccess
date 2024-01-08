@@ -15,6 +15,10 @@ import SwiftUI
 //}
 
 struct ContentView: View {
+    
+    @State var activeUsernames = KeychainService.getActiveUsernames()
+    @State var softDeletedUsernames = KeychainService.getSoftDeletedUsernames()
+    
     var body: some View {
         
         NavigationStack{
@@ -24,7 +28,10 @@ struct ContentView: View {
                     .bold()
                     .padding()
                 
-                NavigationLink(destination: SignInView()) {
+                NavigationLink(destination: SignInView(
+                    activeUsernames: $activeUsernames,
+                    softDeletedUsernames: $softDeletedUsernames
+                )) {
                     Text("Login")
                         .frame(width: 200)
                         .padding()
@@ -43,7 +50,10 @@ struct ContentView: View {
                 }
                 .padding(.vertical, 10)
                                 
-                NavigationLink(destination: SignUpView()) {
+                NavigationLink(destination: SignUpView(
+                    activeUsernames: $activeUsernames,
+                    softDeletedUsernames: $softDeletedUsernames
+                )) {
                     Text("Register")
                         .frame(width: 200)
                         .padding()

@@ -9,12 +9,15 @@ import SwiftUI
 
 struct SignInView: View {
     
-    @State var username: String = ""
-    @State var password: String = ""
-    @State private var isAuthenticated = false
-
+    @State private var username = ""
+    @State private var password = ""
+    @State private var loggedIn = false
+    
+    @Binding var activeUsernames: [String]
+    @Binding var softDeletedUsernames: [String]
     
     var body: some View {
+        NavigationStack{
         VStack{
             Text("Login")
                 .font(.largeTitle)
@@ -43,23 +46,21 @@ struct SignInView: View {
                 )
                 .autocapitalization(.none)
             
-            NavigationLink(destination: Dashboard(username: $username), isActive: $isAuthenticated) {
-                                EmptyView()
-                            }
-                            .hidden()
-        
+            NavigationLink(destination: Dashboard(username: $username, activeUsernames: $activeUsernames, softDeletedUsernames: $softDeletedUsernames), isActive: $loggedIn) {
+                EmptyView()
+            }
+            .hidden()
+            
             Button("Login") {
-                if let user = KeychainService.getUser(username: username),
-                   user.password == password {
-                    if user.accessGranted {
-                        isAuthenticated = true
-                        print("accessGranted")
-                    } else {
-                        print("No access")
-                    }
-                } else {
-                    print("wrong creds")
-                }
+                //                if let savedPassword = KeychainService.getPassword(forAccount: username),
+                //                   savedPassword == password {
+                //                    loggedIn = true
+                //                    print("logged in")
+                //                    print("password is \(savedPassword)")
+                //                } else {
+                //                    print("wrong creds")
+                //                }
+                signIn()
             }.font(.title3)
                 .foregroundColor(.white)
                 .frame(width: 200, height: 50)
@@ -68,10 +69,19 @@ struct SignInView: View {
                 .padding()
         }
     }
+    }
+    
+    func signIn() {
+        if let storedPassword = KeychainService.getPassword(forAccount: username) {
+                if storedPassword == password {
+                    loggedIn = true
+                    print("Login successful!")
+                } else {
+                    print("Incorrect password!")
+                }
+            } else {
+                print("Invalid username or account is soft-deleted!")
+            }
+        }
 }
 
-struct SignInView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInView()
-    }
-}

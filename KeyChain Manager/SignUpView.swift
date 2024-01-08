@@ -12,6 +12,10 @@ struct SignUpView: View {
     @State var name: String = ""
     @State var username: String = ""
     @State var password: String = ""
+    @State private var isRegistered = false
+    
+    @Binding var activeUsernames: [String]
+    @Binding var softDeletedUsernames: [String]
     
     var body: some View {
         VStack{
@@ -54,22 +58,27 @@ struct SignUpView: View {
                 )
                 .autocapitalization(.none)
             
-                                           
             Button("Register") {
-                let newUser = User(name: name, username: username, password: password, accessGranted: true)
-                                KeychainService.saveUser(newUser)
+                KeychainService.savePassword(account: username, password: password)
+                activeUsernames = KeychainService.getActiveUsernames()
+                softDeletedUsernames = KeychainService.getSoftDeletedUsernames()
+                isRegistered = true
+                
             }.font(.title3)
                 .foregroundColor(.white)
                 .frame(width: 200, height: 50)
                 .background(.blue)
                 .cornerRadius(10)
                 .padding()
+            
+            NavigationLink(destination: Dashboard(
+                username: $username,
+                activeUsernames: $activeUsernames,
+                softDeletedUsernames: $softDeletedUsernames), isActive: $isRegistered) {
+                EmptyView()
+            }
+            .hidden()
         }
     }
 }
 
-struct SignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpView()
-    }
-}
