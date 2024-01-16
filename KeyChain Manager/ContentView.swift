@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-//struct User: Codable {
-//    let id: UUID
-//    let name: String
-//    let username: String
-//    let password: String
-//}
-
 struct ContentView: View {
     
     @State var activeUsernames = KeychainService.getActiveUsernames()
@@ -63,7 +56,6 @@ struct ContentView: View {
                 }
             }
         }
-        
     }
 }
 
